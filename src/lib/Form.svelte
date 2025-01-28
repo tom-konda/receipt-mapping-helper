@@ -1,5 +1,6 @@
 <script lang="ts">
   import Canvas from './Canvas.svelte';
+  import { db } from './db';
   let latlon = $state({lat: 0, lon: 0});
   let image: null|FileList = $state(null);
   let note: string = $state('');
@@ -50,8 +51,54 @@
     console.log($state.snapshot(note), 'メモ');
   }
 
-  const insertData = () => {
+  const loadImage = async (uploadImage: File) => {
+    return new Promise<ArrayBuffer>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsArrayBuffer(uploadImage);
+      reader.addEventListener(
+        'loadend',
+        (event) => {
+          resolve(reader.result as ArrayBuffer)
+        }
+      );
 
+      reader.addEventListener(
+        'error',
+        (event) => {
+          reject('File is not read correctly.')
+        }
+      );
+
+      reader.addEventListener(
+        'abort',
+        (event) => {
+          reject('File reading is aborted.')
+        }
+      );
+    })
+  }
+
+  const insertData = async () => {
+    try {
+      const uploadImage = image?.item(0);
+      console.log(uploadImage, 'アップデート');
+      if (!uploadImage) {
+        throw new Error('Upload image is not exist.');
+      }
+
+      const imageData = await loadImage(uploadImage);
+      const blob = new Blob([imageData]);
+      console.log([imageData, blob]);
+      const id = await db.receipt_mapping.add({
+        created: Date.now(),
+        image: blob,
+        lat: latlon.lat,
+        lon: latlon.lon,
+        note: note,
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 </script>
 
@@ -73,6 +120,6 @@
   <div id="step3">
     <h2>Step.3 メモを取る</h2>
       <textarea onblur="{setNoteContent}"></textarea>
-      <input type="button" value="登録する" onpointerdown="{getCurrentState}" />
+      <input type="button" value="登録する" onpointerdown="{insertData}" />
   </div>
 </section>

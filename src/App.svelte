@@ -1,18 +1,19 @@
 <script lang="ts">
   import Form from './lib/Form.svelte'
+  import ListWrapper from './lib/ListWrapper.svelte'
 </script>
 
 <main>
   <div>
   </div>
-  <h1>Vite + Svelte</h1>
+  <h1>Receipt mapping helper</h1>
 
   <section class="app-main">
-    <div class="list">
-
-    </div>
     <div class="form">
       <Form />
+    </div>
+    <div class="list">
+      <ListWrapper />
     </div>
   </section>
 
