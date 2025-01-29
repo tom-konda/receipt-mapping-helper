@@ -19,7 +19,6 @@ jobs:
         run: |
           pnpm install
           pnpm build
-
       - name: Deploy
         if: success()
         uses: crazy-max/ghaction-github-pages@v4
