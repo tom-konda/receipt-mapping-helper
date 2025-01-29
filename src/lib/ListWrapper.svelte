@@ -1,7 +1,7 @@
 <script lang="ts">
   import ListItem from './ListItem.svelte';
-  import { db } from "./db";
-  let list: Array<unknown> = $state([]);
+  import { db, type receiptTable } from "./db";
+  let list: Array<receiptTable> = $state([]);
 
   const getNoteList = async () => {
     list = await db.receipt_mapping.toArray();
