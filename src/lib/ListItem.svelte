@@ -22,5 +22,5 @@
   <span>緯度：{lat}</span>
   <span>経度：{lon}</span>
   <span>メモ：{note}</span>
-  <img src="{objUrl}" />
+  <img alt="{jaJPCreated}に登録された画像" src="{objUrl}" />
 </div>
