@@ -4,7 +4,7 @@
   let list: Array<receiptTable> = $state([]);
 
   const getNoteList = async () => {
-    list = await db.receipt_mapping.toArray();
+    list = await db.receipt_mapping.orderBy('created').reverse().toArray();
     console.log(list);
   }
 </script>

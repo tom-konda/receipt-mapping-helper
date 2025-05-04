@@ -17,8 +17,8 @@ const db = new Dexie('receipt_mapping') as Dexie & {
 
 };
 
-db.version(1).stores({
-  receipt_mapping: '++id, created, image, lat, lon, note'
+db.version(2).stores({
+  receipt_mapping: '++id, &created, image, lat, lon, note'
 });
 
 export { db }
