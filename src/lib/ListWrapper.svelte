@@ -6,11 +6,12 @@
   let hasLoaded: boolean = $state(false);
   // カルーセルの現在表示インデックス
   let currentIndex: number = $state(0);
+  // ListItemの再生成を強制するためのキー（削除後にcurrentIndexが変わらない場合でも再生成させる）
+  let refreshKey: number = $state(0);
 
-  const getNoteList = async () => {
+  const fetchListFromDB = async () => {
     try {
       list = await db.receipt_mapping.orderBy('created').reverse().toArray();
-      currentIndex = 0;
       hasLoaded = true;
     } catch (e) {
       console.error('データの取得に失敗しました', e);
@@ -18,18 +19,36 @@
     }
   }
 
+  const handleLoadButtonClick = async () => {
+    await fetchListFromDB();
+    currentIndex = 0;
+  }
+
   const prev = () => {
-    if (currentIndex > 0) currentIndex--;
+    currentIndex = currentIndex > 0 ? currentIndex - 1 : list.length - 1;
   }
 
   const next = () => {
-    if (currentIndex < list.length - 1) currentIndex++;
+    currentIndex = currentIndex < list.length - 1 ? currentIndex + 1 : 0;
+  }
+
+  const refreshListAfterDelete = async () => {
+    const prevIndex = currentIndex;
+    await fetchListFromDB();
+    if (list.length === 0) {
+      currentIndex = 0;
+    } else if (prevIndex >= list.length) {
+      currentIndex = list.length - 1;
+    } else {
+      currentIndex = prevIndex;
+    }
+    refreshKey++;
   }
 </script>
 <section>
   <div>
     {#if !hasLoaded}
-      <button type="button" onclick="{getNoteList}">保存されているメモをリスト表示</button>
+      <button type="button" onclick="{handleLoadButtonClick}">保存されているメモをリスト表示</button>
     {/if}
   </div>
   {#if hasLoaded && list.length === 0}
@@ -37,15 +56,15 @@
   {/if}
   {#if hasLoaded && list.length > 0}
     <div class="carousel">
-      <div class="carousel-item">
-        {#key currentIndex}
-          <ListItem item={list[currentIndex]} />
-        {/key}
-      </div>
       <div class="carousel-nav">
-        <button type="button" onclick={prev} disabled={currentIndex === 0}>前へ</button>
+        <button type="button" onclick={prev}>前へ</button>
         <span class="carousel-counter">{currentIndex + 1} / {list.length}</span>
-        <button type="button" onclick={next} disabled={currentIndex === list.length - 1}>次へ</button>
+        <button type="button" onclick={next}>次へ</button>
+      </div>
+      <div class="carousel-item">
+        {#key `${currentIndex}-${refreshKey}`}
+          <ListItem item={list[currentIndex]} ondelete={refreshListAfterDelete} />
+        {/key}
       </div>
     </div>
   {/if}
