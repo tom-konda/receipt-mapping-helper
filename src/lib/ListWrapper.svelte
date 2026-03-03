@@ -10,7 +10,7 @@
 </script>
 <section>
   <div>
-    <input type="button" value="保存されているメモをリスト表示" onpointerdown="{getNoteList}" />
+    <button type="button" onclick="{getNoteList}">保存されているメモをリスト表示</button>
   </div>
   <div class="note-list">
     {#if list.length != 0}

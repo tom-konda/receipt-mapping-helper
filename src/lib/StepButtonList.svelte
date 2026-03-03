@@ -14,9 +14,9 @@
 
 <div>
   {#if step != 1}
-  <button onclick="{decreaseStep}">前へ</button>
+  <button type="button" onclick="{decreaseStep}">前へ</button>
   {/if}
   {#if step != 3}
-  <button onclick="{increseStep}" disabled={!canAdvance}>次へ</button>
+  <button type="button" onclick="{increseStep}" disabled={!canAdvance}>次へ</button>
   {/if}
 </div>

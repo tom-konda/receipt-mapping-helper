@@ -187,8 +187,7 @@
   {#if step === 2}
   <div id="step2">
     <h2>Step.2 現在位置の取得</h2>
-    <!-- onpointerdown: onclickだとモバイルでタップ後に反応が遅れるため、pointer eventで即座に反応させる -->
-    <input type="button" value="GPSによって現在位置を取得する" onpointerdown="{setCurrentCoordinate}" />
+    <button type="button" onclick="{setCurrentCoordinate}">GPSによって現在位置を取得する</button>
     <p>現在位置は緯度{ latlon.lat }、経度{ latlon.lon }</p>
   </div>
   {/if}
@@ -196,8 +195,7 @@
   <div id="step3">
     <h2>Step.3 メモを取る</h2>
       <textarea onblur="{setNoteContent}"></textarea>
-      <!-- onpointerdown: onclickだとモバイルでタップ後に反応が遅れるため、pointer eventで即座に反応させる -->
-      <input type="button" value="登録する" onpointerdown="{insertData}" />
+      <button type="button" onclick="{insertData}">登録する</button>
   </div>
   {/if}
   <StepButtonList bind:step={step} {canAdvance} />
