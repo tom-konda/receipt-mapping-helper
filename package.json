@@ -19,6 +19,7 @@
     "vite": "^6.0.3"
   },
   "dependencies": {
-    "dexie": "^4.0.10"
+    "dexie": "^4.0.10",
+    "maplibre-gl": "^5.19.0"
   }
 }

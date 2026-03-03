@@ -1,5 +1,6 @@
 <script lang="ts">
   import ListItem from './ListItem.svelte';
+  import MapView from './MapView.svelte';
   import { db, type receiptTable } from "./db";
   let list: Array<receiptTable> = $state([]);
   // ボタンタップ済みかどうかのフラグ（タップ後はボタンを非表示にする）
@@ -61,6 +62,7 @@
         <span class="carousel-counter">{currentIndex + 1} / {list.length}</span>
         <button type="button" onclick={next}>次へ</button>
       </div>
+      <MapView lat={list[currentIndex].lat} lon={list[currentIndex].lon} />
       <div class="carousel-item">
         {#key `${currentIndex}-${refreshKey}`}
           <ListItem item={list[currentIndex]} ondelete={refreshListAfterDelete} />
@@ -75,13 +77,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    max-width: 600px;
+    margin: 0 auto;
   }
 
   .carousel-counter {
     font-size: 0.9em;
     color: #666;
     margin: 0;
+    line-height: 48px;
   }
 
   .carousel-item {
@@ -91,10 +96,15 @@
   .carousel-nav {
     display: flex;
     gap: 1rem;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
   }
 
   .carousel-nav button {
-    padding: 0.5rem 1.5rem;
+    padding: 0.75rem 1.5rem;
     font-size: 1em;
+    min-height: 48px;
+    min-width: 80px;
   }
 </style>
