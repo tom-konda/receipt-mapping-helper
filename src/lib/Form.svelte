@@ -6,6 +6,12 @@
   let image: null|FileList = $state(null);
   let note: string = $state('');
   let step = $state(1);
+  // stepごとに「次へ」ボタンの有効/無効を制御する条件を算出
+  const canAdvance = $derived(
+    step === 1 ? image !== null
+    : step === 2 ? (latlon.lat !== 0 || latlon.lon !== 0)
+    : true
+  );
   let dialogMessage: string = $state('');
   let dialogRef: HTMLDialogElement | undefined = $state(undefined);
 
@@ -194,7 +200,7 @@
       <input type="button" value="登録する" onpointerdown="{insertData}" />
   </div>
   {/if}
-  <StepButtonList bind:step={step} />
+  <StepButtonList bind:step={step} {canAdvance} />
 
   <!-- showModal()で表示するため、backdrop疑似要素による背景オーバーレイも自動で適用される -->
   <dialog bind:this={dialogRef}>
