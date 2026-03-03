@@ -175,6 +175,8 @@
   {#if step === 1}
   <div id="step1">
     <h2>Step.1 レシートの画像を撮る</h2>
+    <!-- 次へボタンをファイル選択の上に配置し、撮影後すぐに進めるようにする -->
+    <StepButtonList bind:step={step} {canAdvance} />
     <!-- capture属性: モバイル端末でファイル選択ではなくカメラを直接起動させるために指定 -->
     <input type="file" capture accept="image/*" bind:files={image} onchange="{setUploadFile}"/>
     {#if image != null}
@@ -187,6 +189,7 @@
   {#if step === 2}
   <div id="step2">
     <h2>Step.2 現在位置の取得</h2>
+    <StepButtonList bind:step={step} {canAdvance} />
     <button type="button" onclick="{setCurrentCoordinate}">GPSによって現在位置を取得する</button>
     <p>現在位置は緯度{ latlon.lat }、経度{ latlon.lon }</p>
   </div>
@@ -194,11 +197,11 @@
   {#if step === 3}
   <div id="step3">
     <h2>Step.3 メモを取る</h2>
+      <StepButtonList bind:step={step} {canAdvance} />
       <textarea onblur="{setNoteContent}"></textarea>
       <button type="button" onclick="{insertData}">登録する</button>
   </div>
   {/if}
-  <StepButtonList bind:step={step} {canAdvance} />
 
   <!-- showModal()で表示するため、backdrop疑似要素による背景オーバーレイも自動で適用される -->
   <dialog bind:this={dialogRef}>
