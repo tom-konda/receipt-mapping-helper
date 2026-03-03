@@ -5,8 +5,17 @@
   const {lat, lon, image, note} = item;
   const created = new Date(item.created);
 
-  const objUrl = URL.createObjectURL(image);
-  console.log(objUrl);
+  let objUrl = $state('');
+
+  // コンポーネント破棄時にObjectURLを解放してメモリリークを防ぐ
+  $effect(() => {
+    const url = URL.createObjectURL(image);
+    objUrl = url;
+    return () => {
+      URL.revokeObjectURL(url);
+    };
+  });
+
   const jaJPCreated = Intl.DateTimeFormat(
     'ja-JP',
     {
