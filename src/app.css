@@ -11,6 +11,12 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --color-primary: #39e75f;
+  --color-primary-hover: #2ecc50;
+  --color-primary-text: #000000;
+  --color-secondary: #2a2a2a;
+  --color-secondary-hover: #3a3a3a;
 }
 
 a {
@@ -66,10 +72,45 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
+}
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+input[type="file"].btn-primary::file-selector-button {
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
+}
+input[type="file"].btn-primary::file-selector-button:hover {
+  background-color: var(--color-primary-hover);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  font-weight: 700;
+}
+.btn-secondary:hover {
+  background-color: var(--color-secondary-hover);
+}
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
+    --color-primary: #e67e22;
+    --color-primary-hover: #d35400;
+    --color-primary-text: #ffffff;
   }
   a:hover {
     color: #747bff;
@@ -77,5 +118,13 @@ button:focus-visible {
   button,
   input[type="file"]::file-selector-button {
     background-color: #f9f9f9;
+  }
+.btn-secondary {
+    background-color: #ffffff;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+  }
+  .btn-secondary:hover {
+    background-color: #f5f5f5;
   }
 }
