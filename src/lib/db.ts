@@ -1,11 +1,20 @@
 import Dexie, { type EntityTable } from 'dexie';
 
+/**
+ * IndexedDB に保存するレシートデータの構造
+ */
 interface receiptTable {
+  /** 自動採番の主キー */
   id: number,
+  /** 撮影日時（Unix タイムスタンプ、ミリ秒）。ユニーク制約あり */
   created: number,
+  /** レシート写真の Blob データ（JPEG、リサイズ済み） */
   image: Blob,
+  /** 撮影場所の緯度 */
   lat: number,
+  /** 撮影場所の経度 */
   lon: number,
+  /** 自由記述のメモ */
   note: string,
 }
 

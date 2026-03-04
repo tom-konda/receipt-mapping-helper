@@ -9,6 +9,9 @@
   let map: maplibregl.Map | undefined;
   let marker: maplibregl.Marker | undefined;
 
+  // onMount: DOM 描画後に1回だけ実行される。
+  // mapContainer (bind:this) が確実に存在するタイミングで地図を初期化する。
+  // return で返す関数はコンポーネント破棄時にクリーンアップとして実行される。
   onMount(() => {
     map = new maplibregl.Map({
       container: mapContainer,
@@ -43,6 +46,8 @@
     };
   });
 
+  // $effect: props (lat, lon) が変化するたびに実行される。
+  // onMount より先に実行される可能性があるため、map/marker が初期化済みかをチェックする。
   $effect(() => {
     if (!map || !marker) return;
     map.setCenter({lon, lat});

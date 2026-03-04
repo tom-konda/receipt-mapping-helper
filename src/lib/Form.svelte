@@ -48,28 +48,27 @@
     )
   }
 
+  /** 画像リサイズ時の長辺の上限ピクセル数。これを超える画像は縮小される */
   const MAX_LONG_SIDE = 1280;
+
+  /** IndexedDB に保存する JPEG の品質（0.0〜1.0） */
   const JPEG_QUALITY = 0.7;
 
-  // 方式D: createImageBitmapでリサイズし、CanvasからJPEG Blobを生成する。
-  // ブラウザのネイティブリサイズを利用するため高速かつ省メモリ。
-  //
-  // --- 方式B（ステップダウンリサイズ）代替案 ---
-  // 方式Dの resizeQuality オプションに未対応のブラウザでは、
-  // レシートの文字がジャギー（ギザギザ）になる場合がある。
-  // その場合は方式B（ステップダウンリサイズ）に切り替える。
-  //
-  // 方式Bの概要:
-  //   50%ずつ段階的に縮小することで、バイリニア補間の品質低下を回避する手法。
-  //
-  // 方式Bの実装概要（擬似コード）:
-  //   1. 元画像をCanvasに描画
-  //   2. 現在サイズが目標サイズの2倍以上ある間:
-  //      - 幅・高さを50%に縮小した別のCanvasに drawImage で描画
-  //      - 縮小後のCanvasを「現在のCanvas」とする
-  //   3. 最後に目標サイズのCanvasに drawImage で描画
-  //   4. canvas.toBlob() でJPEG Blobを取得
-  // ---
+  /**
+   * 画像ファイルをリサイズして JPEG Blob に変換する。
+   * 長辺が {@link MAX_LONG_SIDE} を超える場合はアスペクト比を維持して縮小する。
+   *
+   * @remarks
+   * 方式D: createImageBitmap でリサイズし、Canvas から JPEG Blob を生成する。
+   * ブラウザのネイティブリサイズを利用するため高速かつ省メモリ。
+   *
+   * 方式D の resizeQuality オプションに未対応のブラウザでは、
+   * レシートの文字がジャギーになる場合がある。
+   * その場合は方式B（ステップダウンリサイズ: 50%ずつ段階的に縮小）に切り替える。
+   *
+   * @param file - リサイズ対象の画像ファイル
+   * @returns リサイズ済みの JPEG Blob
+   */
   const resizeImage = async (file: File): Promise<Blob> => {
     // 元画像のサイズを取得するため、まずリサイズなしでビットマップを作成
     const originalBitmap = await createImageBitmap(file);
@@ -120,7 +119,14 @@
     }
   }
 
-  // Canvas要素からJPEG Blobを生成するヘルパー
+  /**
+   * Canvas 要素から JPEG Blob を生成するヘルパー。
+   * canvas.toBlob() はコールバック API のため Promise でラップしている。
+   * JPEG 品質は {@link JPEG_QUALITY} に従う。
+   *
+   * @param canvas - Blob に変換する Canvas 要素
+   * @returns JPEG 形式の Blob
+   */
   const canvasToBlob = (canvas: HTMLCanvasElement): Promise<Blob> => {
     return new Promise((resolve, reject) => {
       canvas.toBlob(
