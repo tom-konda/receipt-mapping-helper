@@ -30,12 +30,12 @@
           },
         ],
       },
-      center: [lon, lat],
+      center: {lon, lat},
       zoom: 15,
     });
 
     marker = new maplibregl.Marker()
-      .setLngLat([lon, lat])
+      .setLngLat({lon, lat})
       .addTo(map);
 
     return () => {
@@ -45,8 +45,8 @@
 
   $effect(() => {
     if (!map || !marker) return;
-    map.setCenter([lon, lat]);
-    marker.setLngLat([lon, lat]);
+    map.setCenter({lon, lat});
+    marker.setLngLat({lon, lat});
   });
 </script>
 
@@ -58,6 +58,6 @@
     height: 50vw;
     min-height: 200px;
     max-height: 400px;
-    border-radius: 4px;
+    border-radius: 0;
   }
 </style>

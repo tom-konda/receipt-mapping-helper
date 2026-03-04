@@ -38,15 +38,21 @@
   ).format(created);
 </script>
 <div>
-  <ul>
-    <li>
-      <time datetime="{created.toISOString()}">
-        {jaJPCreated}
-      </time>
-    </li>
-    <li>メモ：{note}</li>
-  </ul>
-  <button type="button" class="delete-button" onclick={handleDelete}>削除</button>
+  <div class="item-header">
+    <dl>
+      <dt>登録日時</dt>
+      <dd>
+        <time datetime="{created.toISOString()}">
+          {jaJPCreated}
+        </time>
+      </dd>
+      {#if note}
+        <dt>メモ</dt>
+        <dd>{note}</dd>
+      {/if}
+    </dl>
+    <button type="button" class="delete-button" onclick={handleDelete}>削除</button>
+  </div>
   <img alt="{jaJPCreated}に登録された画像" src="{objUrl}" />
 </div>
 
@@ -55,14 +61,31 @@
     padding: 0.5rem 0;
   }
 
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 0.75rem 0;
+  .item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
   }
 
-  ul li {
-    padding: 0.25rem 0;
+  dl {
+    margin: 0;
+    text-align: left;
+  }
+
+  dt {
+    font-size: 0.8em;
+    color: #999;
+    margin-top: 0.25rem;
+  }
+
+  dt:first-child {
+    margin-top: 0;
+  }
+
+  dd {
+    margin: 0;
     font-size: 0.95em;
   }
 
@@ -74,7 +97,7 @@
     color: #fff;
     border: 1px solid #a02020;
     opacity: 0.8;
-    margin-bottom: 0.75rem;
+    flex-shrink: 0;
   }
 
   .delete-button:hover {
@@ -95,6 +118,10 @@
   }
 
   @media (prefers-color-scheme: light) {
+    dt {
+      color: #666;
+    }
+
     .delete-button {
       background-color: #c0392b;
       border-color: #e74c3c;

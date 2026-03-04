@@ -36,10 +36,13 @@
   const refreshListAfterDelete = async () => {
     const prevIndex = currentIndex;
     await fetchListFromDB();
+    // 全件削除された場合: インデックスをリセット
     if (list.length === 0) {
       currentIndex = 0;
+    // 末尾のアイテムを削除した場合: はみ出すので末尾に補正
     } else if (prevIndex >= list.length) {
       currentIndex = list.length - 1;
+    // それ以外: 同じ位置を維持（次のアイテムが繰り上がって表示される）
     } else {
       currentIndex = prevIndex;
     }
@@ -49,7 +52,7 @@
 <section>
   <div>
     {#if !hasLoaded}
-      <button type="button" onclick="{handleLoadButtonClick}">保存されているメモをリスト表示</button>
+      <button type="button" onclick="{handleLoadButtonClick}" class="btn-primary">保存済みデータを表示</button>
     {/if}
   </div>
   {#if hasLoaded && list.length === 0}
@@ -64,6 +67,9 @@
       </div>
       <MapView lat={list[currentIndex].lat} lon={list[currentIndex].lon} />
       <div class="carousel-item">
+        <!-- {#key}はキー値が変わるとコンポーネントを破棄・再生成する。
+           削除後にcurrentIndexが同じ値のまま（末尾以外を削除した場合）でも
+           ListItemを再生成してObjectURLの再作成を確実に行うため、refreshKeyを併用している -->
         {#key `${currentIndex}-${refreshKey}`}
           <ListItem item={list[currentIndex]} ondelete={refreshListAfterDelete} />
         {/key}
