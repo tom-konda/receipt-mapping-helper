@@ -3,6 +3,7 @@
   import maplibregl from 'maplibre-gl';
   import 'maplibre-gl/dist/maplibre-gl.css';
 
+  // DB スキーマに合わせて lon を使用している。
   let { lat, lon }: { lat: number, lon: number } = $props();
 
   let mapContainer: HTMLDivElement;

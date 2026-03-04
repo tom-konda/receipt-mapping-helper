@@ -2,6 +2,9 @@
   import Canvas from './Canvas.svelte';
   import StepButtonList from './StepButtonList.svelte';
   import { db } from './db';
+  // 緯度0・経度0はヌル島（ギニア湾の海上）を指すが、
+  // 本アプリはレシートを受け取れる陸上での使用を想定しているため問題ない。
+  // GPS取得成功時に実際の座標で上書きされる。
   let latlon = $state({lat: 0, lon: 0});
   let image: null|FileList = $state(null);
   let note: string = $state('');
@@ -77,7 +80,8 @@
     try {
       const { width, height } = originalBitmap;
 
-      // 長辺が上限以下ならリサイズ不要。元画像をJPEGに変換するだけ
+      // 長辺が上限以下ならリサイズ不要。元画像をJPEGに変換するだけ。
+      // ここで return しても finally ブロックが実行されるため originalBitmap.close() は呼ばれる。
       if (width <= MAX_LONG_SIDE && height <= MAX_LONG_SIDE) {
         const canvas = document.createElement('canvas');
         canvas.width = width;
