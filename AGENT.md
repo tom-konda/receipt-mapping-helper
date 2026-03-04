@@ -14,15 +14,14 @@
 2. **帰宅後**: 保存データを一覧表示 → 緯度経度・画像・メモを参照しながらOSMマッピング
 
 ## ビルド・実行
-- `mise exec -- pnpm dev` で開発サーバー起動
-- `mise exec -- pnpm build` でビルド（mise経由でNodeを使用）
+mise経由で pnpm コマンドを実行する（Node バージョン管理のため）。コマンドは package.json を参照。
 
 ## サブエージェント一覧
-- **photo-save**: 写真保存画面（Form, Canvas, StepButtonList）の実装 → `.claude/agents/photo-save.md`
-- **photo-load**: 写真ロード画面（ListWrapper, ListItem）の実装 → `.claude/agents/photo-load.md`
+- **photo-save**: 写真保存画面の実装 → `.claude/agents/photo-save.md`
+- **photo-load**: 写真ロード画面の実装 → `.claude/agents/photo-load.md`
 - **senior-engineer**: 品質レビュー＆修正オーケストレーター → `.claude/agents/senior-engineer.md`
-- **top-page**: トップページ（App.svelte）および新規コンポーネントの実装 → `.claude/agents/top-page.md`
-- **ui-design**: UI/デザイン改善 → `.claude/agents/ui-design.md`（定義未作成）
+- **top-page**: トップページおよび新規コンポーネントの実装 → `.claude/agents/top-page.md`
+- **ui-design**: UI/デザイン改善 → `.claude/agents/ui-design.md`
 
 ## サブエージェント運用の教訓
 - サブエージェントにファイル編集を依頼する場合、権限が拒否される可能性を想定しておく
