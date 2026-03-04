@@ -3,7 +3,7 @@
   // これがないとbind:step={step}で親から渡された値を子から変更できない。
   let { step = $bindable(), canAdvance = true }:  {step: number, canAdvance?: boolean} = $props();
 
-  const increseStep = () => {
+  const increaseStep = () => {
     step += 1;
   }
 
@@ -17,6 +17,6 @@
   <button type="button" onclick="{decreaseStep}" class="btn-secondary">前へ</button>
   {/if}
   {#if step != 3}
-  <button type="button" onclick="{increseStep}" disabled={!canAdvance} class="btn-secondary">次へ</button>
+  <button type="button" onclick="{increaseStep}" disabled={!canAdvance} class="btn-secondary">次へ</button>
   {/if}
 </div>
