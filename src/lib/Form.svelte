@@ -48,14 +48,6 @@
     )
   }
 
-  const setNoteContent = (event: FocusEvent) => {
-    const textareaElement = event.target as HTMLTextAreaElement
-    if (!textareaElement) {
-      return;
-    }
-    note = textareaElement.value;
-  }
-
   const MAX_LONG_SIDE = 1280;
   const JPEG_QUALITY = 0.7;
 
@@ -105,6 +97,9 @@
       originalBitmap.close();
     }
 
+    // 元画像(例: 4000x3000)とリサイズ版を同時にメモリに保持すると、
+    // モバイル端末では数十MBのGPUメモリを消費しOOMの原因になるため、
+    // 先に元画像を解放してからリサイズ版を生成する。
     // originalBitmap は close 済みなので file から再度リサイズ付きで生成
     // createImageBitmapのresizeオプションで高品質リサイズを実行
     const resizedBitmap = await createImageBitmap(file, {
@@ -178,7 +173,7 @@
     <!-- 次へボタンをファイル選択の上に配置し、撮影後すぐに進めるようにする -->
     <StepButtonList bind:step={step} {canAdvance} />
     <!-- capture属性: モバイル端末でファイル選択ではなくカメラを直接起動させるために指定 -->
-    <input type="file" capture accept="image/*" bind:files={image} onchange="{setUploadFile}"/>
+    <input type="file" capture accept="image/*" bind:files={image} onchange="{setUploadFile}" class="btn-primary"/>
     {#if image != null}
       <Canvas imageList={image} ></Canvas>
     {:else}
@@ -190,22 +185,93 @@
   <div id="step2">
     <h2>Step.2 現在位置の取得</h2>
     <StepButtonList bind:step={step} {canAdvance} />
-    <button type="button" onclick="{setCurrentCoordinate}">GPSによって現在位置を取得する</button>
+    <button type="button" onclick="{setCurrentCoordinate}" class="btn-primary">GPSによって現在位置を取得する</button>
     <p>現在位置は緯度{ latlon.lat }、経度{ latlon.lon }</p>
   </div>
   {/if}
   {#if step === 3}
   <div id="step3">
     <h2>Step.3 メモを取る</h2>
-      <StepButtonList bind:step={step} {canAdvance} />
-      <textarea onblur="{setNoteContent}"></textarea>
-      <button type="button" onclick="{insertData}">登録する</button>
+    <StepButtonList bind:step={step} {canAdvance} />
+    <div class="note-field">
+      <label for="note-input">メモ <span class="optional">（任意）</span></label>
+      <textarea
+        id="note-input"
+        placeholder="店名、営業時間など"
+        rows="4"
+        bind:value={note}
+      ></textarea>
+    </div>
+    <button type="button" onclick="{insertData}" class="btn-primary">登録する</button>
   </div>
   {/if}
 
   <!-- showModal()で表示するため、backdrop疑似要素による背景オーバーレイも自動で適用される -->
   <dialog bind:this={dialogRef}>
     <p>{dialogMessage}</p>
-    <button type="button" onclick={() => dialogRef?.close()}>閉じる</button>
+    <button type="button" onclick={() => dialogRef?.close()} class="btn-secondary">閉じる</button>
   </dialog>
 </section>
+
+<style>
+.note-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin: 1rem auto;
+  max-width: 480px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 1rem;
+}
+
+.note-field label {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.note-field .optional {
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+.note-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background-color: #1a1a1a;
+  color: rgba(255, 255, 255, 0.87);
+  resize: vertical;
+}
+
+.note-field textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.note-field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+#step3 .btn-primary {
+  margin-top: 1rem;
+}
+
+@media (prefers-color-scheme: light) {
+  .note-field textarea {
+    background-color: #ffffff;
+    color: #213547;
+    border-color: rgba(0, 0, 0, 0.15);
+  }
+
+  .note-field textarea::placeholder {
+    color: rgba(33, 53, 71, 0.4);
+  }
+}
+</style>
