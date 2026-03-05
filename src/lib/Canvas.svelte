@@ -26,3 +26,11 @@
 {:else}
   <p>画像なし</p>
 {/if}
+
+<style>
+  img {
+    max-width: 100%;
+    max-height: 50vh;
+    object-fit: contain;
+  }
+</style>
