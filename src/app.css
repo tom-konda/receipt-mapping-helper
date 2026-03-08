@@ -53,7 +53,7 @@ h1 {
 button,
 input[type="file"]::file-selector-button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 2px solid rgba(255, 255, 255, 0.25);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -109,8 +109,11 @@ input[type="file"].btn-primary::file-selector-button {
   }
 
   &:disabled {
-    opacity: 0.5;
+    opacity: 1;
     cursor: not-allowed;
+    background-color: #1a1a1a;
+    color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.15);
   }
 }
 
@@ -130,6 +133,7 @@ input[type="file"].btn-primary::file-selector-button {
   button,
   input[type="file"]::file-selector-button {
     background-color: #f9f9f9;
+    border-color: rgba(0, 0, 0, 0.20);
   }
 
   .btn-primary {
@@ -143,6 +147,14 @@ input[type="file"].btn-primary::file-selector-button {
 
     &:hover {
       background-color: #f5f5f5;
+    }
+
+    &:disabled {
+      opacity: 1;
+      cursor: not-allowed;
+      background-color: #f0f0f0;
+      color: rgba(0, 0, 0, 0.3);
+      border-color: rgba(0, 0, 0, 0.15);
     }
   }
 }

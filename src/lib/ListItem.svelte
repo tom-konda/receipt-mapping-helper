@@ -58,7 +58,7 @@
 
 <style>
   div {
-    padding: 0.5rem 0;
+    padding: 0.25rem 0;
   }
 
   .item-header {
@@ -66,7 +66,7 @@
     justify-content: space-between;
     align-items: flex-start;
     gap: 1rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.375rem;
   }
 
   dl {

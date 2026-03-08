@@ -12,7 +12,7 @@
   }
 </script>
 
-<div>
+<div class="step-button-list">
   {#if step != 1}
   <button type="button" onclick="{decreaseStep}" class="btn-secondary">前へ</button>
   {/if}
@@ -20,3 +20,9 @@
   <button type="button" onclick="{increaseStep}" disabled={!canAdvance} class="btn-secondary">次へ</button>
   {/if}
 </div>
+
+<style>
+.step-button-list {
+  margin-bottom: 1.5rem;
+}
+</style>
