@@ -23,9 +23,10 @@ a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+
+  &:hover {
+    color: #535bf2;
+  }
 }
 
 body {
@@ -37,10 +38,8 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
 
-@media (max-width: 428px) {
-  h1 {
+  @media (max-width: 428px) {
     font-size: 2em;
   }
 }
@@ -63,68 +62,87 @@ input[type="file"]::file-selector-button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover,
 input[type="file"]::file-selector-button:hover {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+button {
+  &:focus,
+  &:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
 }
 
 .btn-primary {
   background-color: var(--color-primary);
   color: var(--color-primary-text);
+
+  &:hover {
+    background-color: var(--color-primary-hover);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
-.btn-primary:hover {
-  background-color: var(--color-primary-hover);
-}
+
 input[type="file"].btn-primary::file-selector-button {
   background-color: var(--color-primary);
   color: var(--color-primary-text);
+
+  &:hover {
+    background-color: var(--color-primary-hover);
+  }
 }
-input[type="file"].btn-primary::file-selector-button:hover {
-  background-color: var(--color-primary-hover);
-}
-.btn-primary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+
 .btn-secondary {
   background-color: var(--color-secondary);
   color: var(--color-primary);
   border: 2px solid var(--color-primary);
   font-weight: 700;
-}
-.btn-secondary:hover {
-  background-color: var(--color-secondary-hover);
-}
-.btn-secondary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+
+  &:hover {
+    background-color: var(--color-secondary-hover);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
-    --color-primary: #e67e22;
-    --color-primary-hover: #d35400;
-    --color-primary-text: #ffffff;
+    --color-primary: #39e75f;
+    --color-primary-hover: #2ecc50;
+    --color-primary-text: #000000;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button,
   input[type="file"]::file-selector-button {
     background-color: #f9f9f9;
   }
-.btn-secondary {
+
+  .btn-primary {
+    border: 2px solid #2ecc50;
+  }
+
+  .btn-secondary {
     background-color: #ffffff;
     color: var(--color-primary);
     border: 2px solid var(--color-primary);
-  }
-  .btn-secondary:hover {
-    background-color: #f5f5f5;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
   }
 }

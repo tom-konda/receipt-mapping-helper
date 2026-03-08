@@ -78,10 +78,10 @@
     font-size: 0.8em;
     color: #999;
     margin-top: 0.25rem;
-  }
 
-  dt:first-child {
-    margin-top: 0;
+    &:first-child {
+      margin-top: 0;
+    }
   }
 
   dd {
@@ -98,10 +98,10 @@
     border: 1px solid #a02020;
     opacity: 0.8;
     flex-shrink: 0;
-  }
 
-  .delete-button:hover {
-    opacity: 1;
+    &:hover {
+      opacity: 1;
+    }
   }
 
   img {
@@ -109,10 +109,8 @@
     height: auto;
     object-fit: contain;
     border-radius: 4px;
-  }
 
-  @media (orientation: portrait) {
-    img {
+    @media (orientation: portrait) {
       max-height: 50vh;
     }
   }

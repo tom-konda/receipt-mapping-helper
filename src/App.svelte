@@ -10,8 +10,8 @@
   {#if page === 'top'}
   <h1>Receipt mapping helper</h1>
   <section class="top-menu">
-    <button type="button" onclick={() => page = 'save'}>写真を保存する</button>
-    <button type="button" onclick={() => page = 'load'}>写真を読み込む</button>
+    <button type="button" class="btn-primary" onclick={() => page = 'save'}>写真を保存する</button>
+    <button type="button" class="btn-primary" onclick={() => page = 'load'}>写真を読み込む</button>
   </section>
   {/if}
 
@@ -37,11 +37,11 @@
     gap: 1rem;
     max-width: 480px;
     margin: 2rem auto;
-  }
 
-  .top-menu button {
-    padding: 1rem;
-    font-size: 1.2em;
-    min-height: 48px;
+    button {
+      padding: 1rem;
+      font-size: 1.2em;
+      min-height: 48px;
+    }
   }
 </style>

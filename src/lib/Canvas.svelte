@@ -22,7 +22,10 @@
 </script>
 
 {#if dataURL}
-  <img alt="レシートのプレビュー" src="{dataURL}" />
+  <figure>
+    <figcaption>プレビュー</figcaption>
+    <img alt="レシートのプレビュー" src="{dataURL}" />
+  </figure>
 {:else}
   <p>画像なし</p>
 {/if}

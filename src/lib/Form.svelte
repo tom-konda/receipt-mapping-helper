@@ -234,39 +234,39 @@
   width: 100%;
   box-sizing: border-box;
   padding: 0 1rem;
-}
 
-.note-field label {
-  font-size: 0.95rem;
-  font-weight: 500;
-}
+  label {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
 
-.note-field .optional {
-  font-size: 0.85rem;
-  opacity: 0.6;
-}
+  .optional {
+    font-size: 0.85rem;
+    opacity: 0.6;
+  }
 
-.note-field textarea {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0.75rem;
-  font-family: inherit;
-  font-size: 1rem;
-  line-height: 1.5;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  background-color: #1a1a1a;
-  color: rgba(255, 255, 255, 0.87);
-  resize: vertical;
-}
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background-color: #1a1a1a;
+    color: rgba(255, 255, 255, 0.87);
+    resize: vertical;
 
-.note-field textarea::placeholder {
-  color: rgba(255, 255, 255, 0.35);
-}
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
 
-.note-field textarea:focus {
-  outline: none;
-  border-color: var(--color-primary);
+    &:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+  }
 }
 
 #step3 .btn-primary {

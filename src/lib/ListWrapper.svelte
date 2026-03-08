@@ -105,12 +105,12 @@
     align-items: center;
     width: 100%;
     justify-content: center;
-  }
 
-  .carousel-nav button {
-    padding: 0.75rem 1.5rem;
-    font-size: 1em;
-    min-height: 48px;
-    min-width: 80px;
+    button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1em;
+      min-height: 48px;
+      min-width: 80px;
+    }
   }
 </style>
