@@ -1,7 +1,5 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import maplibregl from 'maplibre-gl';
-  import 'maplibre-gl/dist/maplibre-gl.css';
 
   // DB スキーマに合わせて lon を使用している。
   let { lat, lon }: { lat: number, lon: number } = $props();
@@ -13,7 +11,9 @@
   // onMount: DOM 描画後に1回だけ実行される。
   // mapContainer (bind:this) が確実に存在するタイミングで地図を初期化する。
   // return で返す関数はコンポーネント破棄時にクリーンアップとして実行される。
-  onMount(() => {
+  onMount(async () => {
+    const maplibregl = (await import('maplibre-gl')).default;
+    await import('maplibre-gl/dist/maplibre-gl.css');
     map = new maplibregl.Map({
       container: mapContainer,
       style: {
