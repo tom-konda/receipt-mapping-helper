@@ -16,8 +16,7 @@
     "svelte-check": "^4",
     "tslib": "^2",
     "typescript": "~5.9",
-    "vite": "^7",
-    "vite-plugin-pwa": "^1"
+    "vite": "^7"
   },
   "dependencies": {
     "dexie": "^4",

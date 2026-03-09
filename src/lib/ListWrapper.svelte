@@ -1,27 +1,14 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import ListItem from './ListItem.svelte';
   import MapView from './MapView.svelte';
   import { db, type receiptTable } from "./db";
   let list: Array<receiptTable> = $state([]);
-  let isOnline: boolean = $state(navigator.onLine);
   // ボタンタップ済みかどうかのフラグ（タップ後はボタンを非表示にする）
   let hasLoaded: boolean = $state(false);
   // カルーセルの現在表示インデックス
   let currentIndex: number = $state(0);
   // ListItemの再生成を強制するためのキー（削除後にcurrentIndexが変わらない場合でも再生成させる）
   let refreshKey: number = $state(0);
-
-  onMount(() => {
-    const handleOnline = () => { isOnline = true; };
-    const handleOffline = () => { isOnline = false; };
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  });
 
   const fetchListFromDB = async () => {
     try {
@@ -78,11 +65,7 @@
         <span class="carousel-counter">{currentIndex + 1} / {list.length}</span>
         <button type="button" onclick={next}>次へ</button>
       </div>
-      {#if isOnline}
-        <MapView lat={list[currentIndex].lat} lon={list[currentIndex].lon} />
-      {:else}
-        <p class="offline-message">オフラインなので地図表示はありません</p>
-      {/if}
+      <MapView lat={list[currentIndex].lat} lon={list[currentIndex].lon} />
       <div class="carousel-item">
         <!-- {#key}はキー値が変わるとコンポーネントを破棄・再生成する。
            削除後にcurrentIndexが同じ値のまま（末尾以外を削除した場合）でも
@@ -114,12 +97,6 @@
 
   .carousel-item {
     width: 100%;
-  }
-
-  .offline-message {
-    text-align: center;
-    color: #999;
-    padding: 2rem 0;
   }
 
   .carousel-nav {
