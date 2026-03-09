@@ -2,6 +2,8 @@
   import Canvas from './Canvas.svelte';
   import StepButtonList from './StepButtonList.svelte';
   import { db } from './db';
+  import { onMount } from 'svelte';
+  import MapView from './MapView.svelte';
   // 緯度0・経度0はヌル島（ギニア湾の海上）を指すが、
   // 本アプリはレシートを受け取れる陸上での使用を想定しているため問題ない。
   // GPS取得成功時に実際の座標で上書きされる。
@@ -9,6 +11,7 @@
   let image: null|FileList = $state(null);
   let note: string = $state('');
   let step = $state(1);
+  let isOnline: boolean = $state(navigator.onLine);
   // stepごとに「次へ」ボタンの有効/無効を制御する条件を算出
   const canAdvance = $derived(
     step === 1 ? image !== null
@@ -17,6 +20,17 @@
   );
   let dialogMessage: string = $state('');
   let dialogRef: HTMLDialogElement | undefined = $state(undefined);
+
+  onMount(() => {
+    const handleOnline = () => { isOnline = true; };
+    const handleOffline = () => { isOnline = false; };
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  });
 
   const showDialog = (message: string) => {
     dialogMessage = message;
@@ -197,6 +211,13 @@
     <StepButtonList bind:step={step} {canAdvance} />
     <button type="button" onclick="{setCurrentCoordinate}" class="btn-primary">GPSによって現在位置を取得する</button>
     <p>現在位置は緯度{ latlon.lat }、経度{ latlon.lon }</p>
+    {#if latlon.lat !== 0 || latlon.lon !== 0}
+      {#if isOnline}
+        <MapView lat={latlon.lat} lon={latlon.lon} />
+      {:else}
+        <p class="offline-message">オフラインのため地図表示を省略します</p>
+      {/if}
+    {/if}
   </div>
   {/if}
   {#if step === 3}
@@ -267,6 +288,12 @@
       border-color: var(--color-primary);
     }
   }
+}
+
+.offline-message {
+  text-align: center;
+  color: #999;
+  padding: 2rem 0;
 }
 
 #step3 .btn-primary {
