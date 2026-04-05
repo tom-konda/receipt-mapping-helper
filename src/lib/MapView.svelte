@@ -6,7 +6,7 @@
   // DB スキーマに合わせて lon を使用している。
   let { lat, lon }: { lat: number, lon: number } = $props();
 
-  let mapContainer: HTMLDivElement;
+  let mapContainer: HTMLElement;
   let map: maplibregl.Map | undefined;
   let marker: maplibregl.Marker | undefined;
 
@@ -56,7 +56,7 @@
   });
 </script>
 
-<div class="map-container" bind:this={mapContainer}></div>
+<figure class="map-container" bind:this={mapContainer}></figure>
 
 <style>
   .map-container {
