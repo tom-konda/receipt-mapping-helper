@@ -65,6 +65,8 @@
     min-height: 200px;
     max-height: 400px;
     border-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
 
     /* 縦向き時は高さが大きくなりすぎるため、通常時の max-height (400px) の 75% に制限する */
     @media (orientation: portrait) {
