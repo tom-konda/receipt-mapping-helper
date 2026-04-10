@@ -13,7 +13,7 @@
   <section class="top-menu">
     <button type="button" class="btn-primary" onclick={() => page = 'save'}>写真を保存する</button>
     <button type="button" class="btn-primary" onclick={() => page = 'load'}>写真を読み込む</button>
-    <a href="https://github.com/tom-konda/receipt-mapping-helper?tab=readme-ov-file#receipt-mapping-helper" target="_blank" rel="noopener noreferrer">アプリのREADMEを読む ↗</a>
+    <a href="https://github.com/tom-konda/receipt-mapping-helper?tab=readme-ov-file#receipt-mapping-helper" target="_blank" rel="noopener noreferrer">アプリの README を読む ↗</a>
   </section>
   {/if}
 
