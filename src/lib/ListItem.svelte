@@ -96,11 +96,10 @@
     background-color: #8b2020;
     color: #fff;
     border: 1px solid #a02020;
-    opacity: 0.8;
     flex-shrink: 0;
 
     &:hover {
-      opacity: 1;
+      background-color: #a02020;
     }
   }
 

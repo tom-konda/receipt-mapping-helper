@@ -1,6 +1,7 @@
 <script lang="ts">
   import ListItem from './ListItem.svelte';
   import MapView from './MapView.svelte';
+  import ArrowIcon from './icons/ArrowIcon.svelte';
   import { db, type receiptTable } from "./db";
   let list: Array<receiptTable> = $state([]);
   // ボタンタップ済みかどうかのフラグ（タップ後はボタンを非表示にする）
@@ -49,7 +50,7 @@
     refreshKey++;
   }
 </script>
-<section>
+<section class="list-wrapper">
   <div>
     {#if !hasLoaded}
       <button type="button" onclick="{handleLoadButtonClick}" class="btn-primary">保存済みデータを表示</button>
@@ -61,9 +62,9 @@
   {#if hasLoaded && list.length > 0}
     <div class="carousel">
       <div class="carousel-nav">
-        <button type="button" onclick={prev}>前へ</button>
+        <button type="button" onclick={prev}><ArrowIcon direction="left" /> 前へ</button>
         <span class="carousel-counter">{currentIndex + 1} / {list.length}</span>
-        <button type="button" onclick={next}>次へ</button>
+        <button type="button" onclick={next}>次へ <ArrowIcon direction="right" /></button>
       </div>
       <MapView lat={list[currentIndex].lat} lon={list[currentIndex].lon} />
       <div class="carousel-item">
@@ -79,6 +80,10 @@
 </section>
 
 <style>
+  .list-wrapper {
+    margin-top: 1rem;
+  }
+
   .carousel {
     display: flex;
     flex-direction: column;
@@ -90,7 +95,7 @@
 
   .carousel-counter {
     font-size: 0.9em;
-    color: #666;
+    color: #999;
     margin: 0;
     line-height: 48px;
   }

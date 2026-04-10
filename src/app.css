@@ -58,6 +58,7 @@ input[type="file"]::file-selector-button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
+  color: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
@@ -86,6 +87,18 @@ button {
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+}
+
+input[type="file"] {
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 1em;
+
+  &::file-selector-button {
+    border: none;
+    border-radius: 0;
   }
 }
 
@@ -121,8 +134,8 @@ input[type="file"].btn-primary::file-selector-button {
   :root {
     color: #213547;
     background-color: #ffffff;
-    --color-primary: #39e75f;
-    --color-primary-hover: #2ecc50;
+    --color-primary: #99cc33;
+    --color-primary-hover: #88b52e;
     --color-primary-text: #000000;
   }
 
@@ -136,8 +149,12 @@ input[type="file"].btn-primary::file-selector-button {
     border-color: rgba(0, 0, 0, 0.20);
   }
 
+  input[type="file"] {
+    border-color: rgba(0, 0, 0, 0.20);
+  }
+
   .btn-primary {
-    border: 2px solid #2ecc50;
+    border: 2px solid #88b52e;
   }
 
   .btn-secondary {

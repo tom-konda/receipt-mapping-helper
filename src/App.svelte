@@ -1,6 +1,7 @@
 <script lang="ts">
   import Form from './lib/Form.svelte'
   import ListWrapper from './lib/ListWrapper.svelte'
+  import ArrowIcon from './lib/icons/ArrowIcon.svelte'
 
   // 'top': 選択画面, 'save': 保存画面, 'load': 読み込み画面
   let page: 'top' | 'save' | 'load' = $state('top');
@@ -17,14 +18,14 @@
 
   {#if page === 'save'}
   <section>
-    <button type="button" onclick={() => page = 'top'}>トップに戻る</button>
+    <button type="button" onclick={() => page = 'top'}><ArrowIcon direction="up" /> トップに戻る</button>
     <Form />
   </section>
   {/if}
 
   {#if page === 'load'}
   <section>
-    <button type="button" onclick={() => page = 'top'}>トップに戻る</button>
+    <button type="button" onclick={() => page = 'top'}><ArrowIcon direction="up" /> トップに戻る</button>
     <ListWrapper />
   </section>
   {/if}
