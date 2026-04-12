@@ -1,46 +1,57 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import maplibregl from 'maplibre-gl';
-  import 'maplibre-gl/dist/maplibre-gl.css';
+  import type { Map, Marker } from 'maplibre-gl';
 
   // DB スキーマに合わせて lon を使用している。
   let { lat, lon }: { lat: number, lon: number } = $props();
 
   let mapContainer: HTMLElement;
-  let map: maplibregl.Map | undefined;
-  let marker: maplibregl.Marker | undefined;
+  // Map/Marker はクラスインスタンスのため $state() でラップしない（Proxy化すると内部メソッドが壊れる）。
+  // 代わりに initialized フラグで $effect のリアクティブ依存を確保する。
+  let map: Map | undefined;
+  let marker: Marker | undefined;
+  let initialized = $state(false);
 
   // onMount: DOM 描画後に1回だけ実行される。
   // mapContainer (bind:this) が確実に存在するタイミングで地図を初期化する。
   // return で返す関数はコンポーネント破棄時にクリーンアップとして実行される。
+  // async コールバックを直接渡すとクリーンアップ関数を返せないため、
+  // 同期コールバック内で即時実行 async 関数を呼ぶ形にしている。
   onMount(() => {
-    map = new maplibregl.Map({
-      container: mapContainer,
-      style: {
-        version: 8,
-        sources: {
-          osm: {
-            type: 'raster',
-            tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
-            tileSize: 256,
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          },
-        },
-        layers: [
-          {
-            id: 'osm',
-            type: 'raster',
-            source: 'osm',
-          },
-        ],
-      },
-      center: {lon, lat},
-      zoom: 16,
-    });
+    (async () => {
+      const maplibregl = (await import('maplibre-gl')).default;
+      await import('maplibre-gl/dist/maplibre-gl.css');
 
-    marker = new maplibregl.Marker()
-      .setLngLat({lon, lat})
-      .addTo(map);
+      map = new maplibregl.Map({
+        container: mapContainer,
+        style: {
+          version: 8,
+          sources: {
+            osm: {
+              type: 'raster',
+              tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+              tileSize: 256,
+              attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            },
+          },
+          layers: [
+            {
+              id: 'osm',
+              type: 'raster',
+              source: 'osm',
+            },
+          ],
+        },
+        center: {lon, lat},
+        zoom: 16,
+      });
+
+      marker = new maplibregl.Marker()
+        .setLngLat({lon, lat})
+        .addTo(map);
+
+      initialized = true;
+    })();
 
     return () => {
       map?.remove();
@@ -48,11 +59,14 @@
   });
 
   // $effect: props (lat, lon) が変化するたびに実行される。
-  // onMount より先に実行される可能性があるため、map/marker が初期化済みかをチェックする。
+  // lat, lon を先に読み出して依存関係に必ず登録されるようにする。
+  // initialized ($state) で動的 import 完了後に再実行をトリガーする。
   $effect(() => {
-    if (!map || !marker) return;
-    map.setCenter({lon, lat});
-    marker.setLngLat({lon, lat});
+    const currentLat = lat;
+    const currentLon = lon;
+    if (!initialized || !map || !marker) return;
+    map.setCenter({lon: currentLon, lat: currentLat});
+    marker.setLngLat({lon: currentLon, lat: currentLat});
   });
 </script>
 

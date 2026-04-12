@@ -1,9 +1,22 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import ListItem from './ListItem.svelte';
   import MapView from './MapView.svelte';
   import ArrowIcon from './icons/ArrowIcon.svelte';
   import { db, type receiptTable } from "./db";
   let list: Array<receiptTable> = $state([]);
+  let isOnline: boolean = $state(navigator.onLine);
+
+  onMount(() => {
+    const setOnline = () => { isOnline = true; };
+    const setOffline = () => { isOnline = false; };
+    window.addEventListener('online', setOnline);
+    window.addEventListener('offline', setOffline);
+    return () => {
+      window.removeEventListener('online', setOnline);
+      window.removeEventListener('offline', setOffline);
+    };
+  });
   // ボタンタップ済みかどうかのフラグ（タップ後はボタンを非表示にする）
   let hasLoaded: boolean = $state(false);
   // カルーセルの現在表示インデックス
@@ -66,7 +79,11 @@
         <span class="carousel-counter">{currentIndex + 1} / {list.length}</span>
         <button type="button" onclick={next}>次へ <ArrowIcon direction="right" /></button>
       </div>
-      <MapView lat={list[currentIndex].lat} lon={list[currentIndex].lon} />
+      {#if isOnline}
+        <MapView lat={list[currentIndex].lat} lon={list[currentIndex].lon} />
+      {:else}
+        <p>オフラインのため地図を表示できません</p>
+      {/if}
       <div class="carousel-item">
         <!-- {#key}はキー値が変わるとコンポーネントを破棄・再生成する。
            削除後にcurrentIndexが同じ値のまま（末尾以外を削除した場合）でも
