@@ -20,12 +20,12 @@ export default defineConfig({
         display: 'standalone',
         icons: [
           {
-            src: '/icon-192x192.svg',
+            src: isGithub?.length ? '/receipt-mapping-helper/icon-192x192.svg' : '/icon-192x192.svg',
             sizes: '192x192',
             type: 'image/svg+xml',
           },
           {
-            src: '/icon-512x512.svg',
+            src: isGithub?.length ? '/receipt-mapping-helper/icon-512x512.svg' : '/icon-512x512.svg',
             sizes: '512x512',
             type: 'image/svg+xml',
           },
