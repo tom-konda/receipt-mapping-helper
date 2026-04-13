@@ -30,6 +30,8 @@ export default defineConfig({
             type: 'image/svg+xml',
           },
         ],
+        lang: 'ja',
+        start_url: './',
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg}'],
