@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/receipt-mapping-helper/sw.js', { scope: '/receipt-mapping-helper/' })})}

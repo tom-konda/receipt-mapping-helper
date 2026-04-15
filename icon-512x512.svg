@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="512" height="512">
+  <!-- 地図背景（右下寄せ 24x24） -->
+  <rect x="8" y="8" width="24" height="24" rx="4" fill="#9dd668"/>
+  <!-- 道路 -->
+  <line x1="10" y1="20" x2="30" y2="20" stroke="#999" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="20" y1="10" x2="20" y2="30" stroke="#999" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- 建物区画1（左上ブロック） -->
+  <rect x="11" y="11" width="4" height="3.5" rx="0.5" fill="#f0e6d2" stroke="#bfaa8c" stroke-width="0.5"/>
+  <!-- 建物区画2（右下ブロック） -->
+  <rect x="22" y="24" width="5" height="4" rx="0.5" fill="#f0e6d2" stroke="#bfaa8c" stroke-width="0.5"/>
+  <!-- 公園（左下ブロック、緑寄り） -->
+  <rect x="11" y="22" width="6" height="5" rx="1" fill="#5cb840" stroke="#a5e07a" stroke-width="0.5" opacity="0.8"/>
+  <!-- 公園の木の点 -->
+  <circle cx="13" cy="24" r="0.8" fill="#3a9928" opacity="0.7"/>
+  <circle cx="15.5" cy="25.5" r="0.8" fill="#3a9928" opacity="0.7"/>
+
+  <!-- レシート（紙片）: 左側に細く縦長に配置 -->
+  <rect x="3" y="3" width="10" height="23" rx="1" fill="#fff" stroke="#666" stroke-width="1"/>
+  <!-- レシートのテキスト行 -->
+  <line x1="5" y1="7" x2="11" y2="7" stroke="#bbb" stroke-width="1" stroke-linecap="round"/>
+  <line x1="5" y1="10.5" x2="10" y2="10.5" stroke="#bbb" stroke-width="1" stroke-linecap="round"/>
+  <line x1="5" y1="14" x2="11" y2="14" stroke="#bbb" stroke-width="1" stroke-linecap="round"/>
+  <line x1="5" y1="17.5" x2="9" y2="17.5" stroke="#bbb" stroke-width="1" stroke-linecap="round"/>
+  <line x1="5" y1="21" x2="10" y2="21" stroke="#bbb" stroke-width="1" stroke-linecap="round"/>
+
+  <!-- 地図ピン: 右側に配置 -->
+  <g transform="translate(23, 18.6)">
+    <path d="M0,-8 C-3.5,-8 -5.5,-5 -5.5,-3 C-5.5,1.5 0,7 0,7 C0,7 5.5,1.5 5.5,-3 C5.5,-5 3.5,-8 0,-8 Z" fill="#e74c3c" stroke="#c0392b" stroke-width="0.8"/>
+    <circle cx="0" cy="-3" r="2" fill="#fff"/>
+  </g>
+</svg>
