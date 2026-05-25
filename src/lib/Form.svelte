@@ -301,14 +301,16 @@
 }
 
 @media (prefers-color-scheme: light) {
-  .note-field textarea {
-    background-color: #ffffff;
-    color: #213547;
-    border-color: rgba(0, 0, 0, 0.15);
-  }
+  .note-field {
+    textarea {
+      background-color: #ffffff;
+      color: #213547;
+      border-color: rgba(0, 0, 0, 0.15);
 
-  .note-field textarea::placeholder {
-    color: rgba(33, 53, 71, 0.4);
+      &::placeholder {
+        color: rgba(33, 53, 71, 0.4);
+      }
+    }
   }
 }
 </style>
