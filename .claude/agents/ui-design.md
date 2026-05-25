@@ -20,9 +20,4 @@ UI/デザインの改善を担当する。
 - 既存の機能を壊さないこと
 - 大幅なデザイン変更は行わず、整理・改善に集中すること
 - CSS の実装時は `css` スキルに従うこと
-- 実装完了後は `implementation-rules` スキルに従うこと
 
-## 実施済みタスク（2026-03-03）
-- Counter.svelte: 未使用のため削除
-- App.svelte: `.read-the-docs`スタイル削除
-- app.css: `.card`スタイル削除、bodyの`display:flex; place-items:center`削除
