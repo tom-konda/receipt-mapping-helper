@@ -69,6 +69,7 @@ h1 {
    コンテナ自体の見た目 (border / border-radius / font-size 等) は .btn から継承される */
 input[type="file"] {
   overflow: hidden;
+  max-width: 100vw;
 
   &::file-selector-button {
     border: none;
