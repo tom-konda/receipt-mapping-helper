@@ -70,7 +70,7 @@
     {/if}
   </div>
   {#if hasLoaded && list.length === 0}
-    <p>登録されているデータはありません。</p>
+    <p>現在、登録されているデータはありません</p>
   {/if}
   {#if hasLoaded && list.length > 0}
     <div class="carousel">
@@ -82,7 +82,7 @@
       {#if isOnline}
         <MapView lat={list[currentIndex].lat} lon={list[currentIndex].lon} />
       {:else}
-        <p>オフラインのため地図を表示できません</p>
+        <p>オフラインのため地図表示を省略します</p>
       {/if}
       <div class="carousel-item">
         <!-- {#key}はキー値が変わるとコンポーネントを破棄・再生成する。

@@ -201,7 +201,7 @@
     {#if image != null}
       <Canvas imageList={image} ></Canvas>
     {:else}
-      <p>画像なし</p>
+      <p>撮られた画像がありません</p>
     {/if}
   </div>
   {/if}
@@ -210,13 +210,15 @@
     <h2>Step.2 現在位置の取得</h2>
     <StepButtonList bind:step={step} {canAdvance} />
     <button type="button" onclick="{setCurrentCoordinate}" class="btn btn-primary">GPSによって現在位置を取得する</button>
-    <p>現在位置は緯度{ latlon.lat }、経度{ latlon.lon }</p>
     {#if latlon.lat !== 0 || latlon.lon !== 0}
+      <p>現在位置は緯度{ latlon.lat }、経度{ latlon.lon }付近です</p>
       {#if isOnline}
         <MapView lat={latlon.lat} lon={latlon.lon} />
       {:else}
         <p class="offline-message">オフラインのため地図表示を省略します</p>
       {/if}
+    {:else}
+      <p>現在位置が取得されていません</p>
     {/if}
   </div>
   {/if}
