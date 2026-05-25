@@ -39,6 +39,7 @@
 </script>
 <div>
   <div class="item-header">
+    <button type="button" class="btn btn-danger item-header-delete-btn" onclick={handleDelete}>削除</button>
     <dl>
       <dt>登録日時</dt>
       <dd>
@@ -51,7 +52,6 @@
         <dd>{note}</dd>
       {/if}
     </dl>
-    <button type="button" class="delete-button" onclick={handleDelete}>削除</button>
   </div>
   <img alt="{jaJPCreated}に登録された画像" src="{objUrl}" />
 </div>
@@ -62,11 +62,19 @@
   }
 
   .item-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
     margin-bottom: 0.375rem;
+
+    /* float の子要素を含むためのクリアフィックス */
+    &::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
+
+  .item-header-delete-btn {
+    float: right;
+    margin-left: 1rem;
   }
 
   dl {
@@ -89,20 +97,6 @@
     font-size: 0.95em;
   }
 
-  .delete-button {
-    min-height: 44px;
-    padding: 0.5rem 1.5rem;
-    font-size: 0.9em;
-    background-color: #8b2020;
-    color: #fff;
-    border: 1px solid #a02020;
-    flex-shrink: 0;
-
-    &:hover {
-      background-color: #a02020;
-    }
-  }
-
   img {
     width: 100%;
     height: auto;
@@ -117,11 +111,6 @@
   @media (prefers-color-scheme: light) {
     dt {
       color: #666;
-    }
-
-    .delete-button {
-      background-color: #c0392b;
-      border-color: #e74c3c;
     }
   }
 </style>

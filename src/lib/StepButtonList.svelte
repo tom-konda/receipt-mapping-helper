@@ -15,10 +15,10 @@
 
 <div class="step-button-list">
   {#if step != 1}
-  <button type="button" onclick="{decreaseStep}"><ArrowIcon direction="left" /> 前へ</button>
+  <button type="button" onclick="{decreaseStep}" class="btn"><ArrowIcon direction="left" /> 前へ</button>
   {/if}
   {#if step != 3}
-  <button type="button" onclick="{increaseStep}" disabled={!canAdvance} class="btn-secondary">次へ <ArrowIcon direction="right" /></button>
+  <button type="button" onclick="{increaseStep}" disabled={!canAdvance} class="btn btn-secondary">次へ <ArrowIcon direction="right" /></button>
   {/if}
 </div>
 
@@ -27,8 +27,6 @@
   margin-bottom: 1.5rem;
 
   .btn-secondary {
-    color: inherit;
-
     &:disabled {
       color: rgba(255, 255, 255, 0.15);
 

@@ -66,7 +66,7 @@
 <section class="list-wrapper">
   <div>
     {#if !hasLoaded}
-      <button type="button" onclick="{handleLoadButtonClick}" class="btn-primary">保存済みデータを表示</button>
+      <button type="button" onclick="{handleLoadButtonClick}" class="btn btn-primary">保存済みデータを表示</button>
     {/if}
   </div>
   {#if hasLoaded && list.length === 0}
@@ -75,9 +75,9 @@
   {#if hasLoaded && list.length > 0}
     <div class="carousel">
       <div class="carousel-nav">
-        <button type="button" onclick={prev}><ArrowIcon direction="left" /> 前へ</button>
+        <button type="button" onclick={prev} class="btn carousel-nav-btn"><ArrowIcon direction="left" /> 前へ</button>
         <span class="carousel-counter">{currentIndex + 1} / {list.length}</span>
-        <button type="button" onclick={next}>次へ <ArrowIcon direction="right" /></button>
+        <button type="button" onclick={next} class="btn carousel-nav-btn">次へ <ArrowIcon direction="right" /></button>
       </div>
       {#if isOnline}
         <MapView lat={list[currentIndex].lat} lon={list[currentIndex].lon} />
@@ -127,12 +127,9 @@
     align-items: center;
     width: 100%;
     justify-content: center;
+  }
 
-    button {
-      padding: 0.75rem 1.5rem;
-      font-size: 1em;
-      min-height: 48px;
-      min-width: 80px;
-    }
+  .carousel-nav-btn {
+    min-width: 80px;
   }
 </style>

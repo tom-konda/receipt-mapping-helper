@@ -13,20 +13,12 @@
   -moz-osx-font-smoothing: grayscale;
 
   --color-primary: #39e75f;
-  --color-primary-hover: #2ecc50;
   --color-primary-text: #000000;
   --color-secondary: #2a2a2a;
-  --color-secondary-hover: #3a3a3a;
-}
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-
-  &:hover {
-    color: #535bf2;
-  }
+  /* WCAG 2.5.5 (Level AAA) のタップターゲット最小サイズ 44px を超えつつ、
+     周辺レイアウトとのバランスを取って設定 */
+  --tap-target-min-size: 45px;
 }
 
 body {
@@ -50,8 +42,11 @@ h1 {
   text-align: center;
 }
 
-button,
-input[type="file"]::file-selector-button {
+/* ボタン基底クラス。<button> / <a> / その他いずれの要素に付けてもボタンの見た目になる */
+.btn {
+  display: inline-block;
+  box-sizing: border-box;
+  min-height: var(--tap-target-min-size);
   border-radius: 8px;
   border: 2px solid rgba(255, 255, 255, 0.25);
   padding: 0.6em 1.2em;
@@ -60,18 +55,33 @@ input[type="file"]::file-selector-button {
   font-family: inherit;
   color: inherit;
   background-color: #1a1a1a;
+  text-align: center;
+  text-decoration: none;
   cursor: pointer;
   transition: border-color 0.25s;
 
   &:hover {
-    border-color: #646cff;
+    border-color: #e6c200;
   }
 }
 
-button {
-  &:focus,
-  &:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
+/* <input type="file"> は構造上 .btn クラスを ::file-selector-button に直接付けられないため、
+   input 側に付いた .btn / .btn-primary を疑似要素にブリッジする。
+   コンテナ自体の見た目 (border / border-radius / font-size 等) は .btn から継承される */
+input[type="file"] {
+  overflow: hidden;
+
+  &::file-selector-button {
+    border: none;
+    border-radius: 0;
+  }
+
+  &.btn,
+  &.btn-primary {
+    &::file-selector-button {
+      background-color: var(--color-primary);
+      color: var(--color-primary-text);
+    }
   }
 }
 
@@ -79,46 +89,17 @@ button {
   background-color: var(--color-primary);
   color: var(--color-primary-text);
 
-  &:hover {
-    background-color: var(--color-primary-hover);
-  }
-
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 }
 
-input[type="file"] {
-  border: 2px solid rgba(255, 255, 255, 0.25);
-  border-radius: 8px;
-  overflow: hidden;
-  font-size: 1em;
-
-  &::file-selector-button {
-    border: none;
-    border-radius: 0;
-  }
-
-  &.btn-primary::file-selector-button {
-    background-color: var(--color-primary);
-    color: var(--color-primary-text);
-
-    &:hover {
-      background-color: var(--color-primary-hover);
-    }
-  }
-}
-
 .btn-secondary {
   background-color: var(--color-secondary);
-  color: var(--color-primary);
+  color: inherit;
   border: 2px solid var(--color-primary);
   font-weight: 700;
-
-  &:hover {
-    background-color: var(--color-secondary-hover);
-  }
 
   &:disabled {
     opacity: 1;
@@ -129,26 +110,30 @@ input[type="file"] {
   }
 }
 
+.btn-danger {
+  background-color: #8b2020;
+  color: #fff;
+  border: 1px solid #a02020;
+}
+
+/* トップページ専用の大型ボタン修飾子。.btn + variant と併用する */
+.btn-top {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.2em;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
     --color-primary: #99cc33;
-    --color-primary-hover: #88b52e;
     --color-primary-text: #000000;
   }
 
-  a:hover {
-    color: #747bff;
-  }
-
-  button,
-  input[type="file"]::file-selector-button {
+  .btn {
     background-color: #f9f9f9;
-    border-color: rgba(0, 0, 0, 0.20);
-  }
-
-  input[type="file"] {
     border-color: rgba(0, 0, 0, 0.20);
   }
 
@@ -158,12 +143,8 @@ input[type="file"] {
 
   .btn-secondary {
     background-color: #ffffff;
-    color: var(--color-primary);
+    color: inherit;
     border: 2px solid var(--color-primary);
-
-    &:hover {
-      background-color: #f5f5f5;
-    }
 
     &:disabled {
       opacity: 1;
@@ -172,5 +153,10 @@ input[type="file"] {
       color: rgba(0, 0, 0, 0.3);
       border-color: rgba(0, 0, 0, 0.15);
     }
+  }
+
+  .btn-danger {
+    background-color: #c0392b;
+    border-color: #e74c3c;
   }
 }
