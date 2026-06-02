@@ -115,6 +115,11 @@
     color: #999;
     margin: 0;
     line-height: 48px;
+    /* 桁数が変わってもレイアウトが揺れないよう、等幅数字と最大 3 桁分の min-width を確保。
+       "999 / 999"（数字 6 文字 + " / " 3 文字）をフォント差異込みで安全に収めるため 9ch を採用 */
+    font-variant-numeric: tabular-nums;
+    min-width: 9ch;
+    text-align: center;
   }
 
   .carousel-item {
