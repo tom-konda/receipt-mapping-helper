@@ -16,6 +16,8 @@
   --color-primary-text: #000000;
   --color-secondary: #2a2a2a;
   --button-hover-border: #e6c200;
+  /* ボタンとダイアログ等で共有する控えめな枠線色。カラースキームごとに上書きする */
+  --color-border-subtle: rgba(255, 255, 255, 0.25);
 
   /* WCAG 2.5.5 (Level AAA) のタップターゲット最小サイズ 44px を超えつつ、
      周辺レイアウトとのバランスを取って設定 */
@@ -48,7 +50,7 @@ h1 {
   box-sizing: border-box;
   min-height: var(--tap-target-min-size);
   border-radius: 8px;
-  border: 2px solid rgba(255, 255, 255, 0.25);
+  border: 2px solid var(--color-border-subtle);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -131,12 +133,12 @@ input[type="file"] {
     background-color: #ffffff;
     --color-primary: #99cc33;
     --color-primary-text: #000000;
-  --button-hover-border: #000fe6;
+    --button-hover-border: #000fe6;
+    --color-border-subtle: rgba(0, 0, 0, 0.20);
   }
 
   .btn {
     background-color: #f9f9f9;
-    border-color: rgba(0, 0, 0, 0.20);
     &:hover {
       border-color: var(--button-hover-border);
     }

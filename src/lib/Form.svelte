@@ -290,6 +290,12 @@
   padding: 2rem 0;
 }
 
+/* ダイアログの枠線は app.css の .btn と同じ色味・太さに揃え、
+   ボタン群と視覚的な統一感を持たせる */
+dialog {
+  border: 2px solid var(--color-border-subtle);
+}
+
 @media (prefers-color-scheme: light) {
   .note-field {
     textarea {

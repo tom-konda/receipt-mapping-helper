@@ -76,7 +76,11 @@
     <div class="carousel">
       <div class="carousel-nav">
         <button type="button" onclick={prev} class="btn carousel-nav-btn"><ArrowIcon direction="left" /> 前へ</button>
-        <span class="carousel-counter">{currentIndex + 1} / {list.length}</span>
+        <span class="carousel-counter">
+          <span class="carousel-counter-num">{currentIndex + 1}</span>
+          <span class="carousel-counter-sep">/</span>
+          <span class="carousel-counter-num">{list.length}</span>
+        </span>
         <button type="button" onclick={next} class="btn carousel-nav-btn">次へ <ArrowIcon direction="right" /></button>
       </div>
       {#if isOnline}
@@ -115,10 +119,20 @@
     color: #999;
     margin: 0;
     line-height: 48px;
-    /* 桁数が変わってもレイアウトが揺れないよう、等幅数字と最大 3 桁分の min-width を確保。
-       "999 / 999"（数字 6 文字 + " / " 3 文字）をフォント差異込みで安全に収めるため 9ch を採用 */
+  }
+
+  /* 数字部分は最大 3 桁を想定し、桁数が変わっても幅が動かないよう固定枠を設ける */
+  .carousel-counter-num {
+    display: inline-block;
+    min-width: 3ch;
+    text-align: center;
     font-variant-numeric: tabular-nums;
-    min-width: 9ch;
+  }
+
+  /* スラッシュも左右の数字との間隔を一定に保つため固定幅で配置 */
+  .carousel-counter-sep {
+    display: inline-block;
+    min-width: 1ch;
     text-align: center;
   }
 
