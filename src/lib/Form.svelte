@@ -37,14 +37,6 @@
     dialogRef?.showModal();
   };
 
-  const setUploadFile = (event: Event) => {
-    const inputElem = event.target as HTMLInputElement
-    const fileList = inputElem.files;
-    if (fileList) {
-      image = fileList;
-    }
-  }
-
   const setCurrentCoordinate = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -197,7 +189,7 @@
     <!-- 次へボタンをファイル選択の上に配置し、撮影後すぐに進めるようにする -->
     <StepButtonList bind:step={step} {canAdvance} />
     <!-- capture属性: モバイル端末でファイル選択ではなくカメラを直接起動させるために指定 -->
-    <input type="file" capture accept="image/*" bind:files={image} onchange="{setUploadFile}" class="btn btn-primary"/>
+    <input type="file" capture accept="image/*" bind:files={image} class="btn btn-primary"/>
     {#if image != null}
       <Canvas imageList={image} ></Canvas>
     {:else}
