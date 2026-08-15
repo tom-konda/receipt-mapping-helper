@@ -18,8 +18,8 @@
     "typescript": "~5.9",
     "vite": "^8",
     "vite-plugin-pwa": "^1",
-    "workbox-build": "^7.4.1",
-    "workbox-window": "^7.4.1"
+    "workbox-build": "^7",
+    "workbox-window": "^7"
   },
   "dependencies": {
     "dexie": "^4",
